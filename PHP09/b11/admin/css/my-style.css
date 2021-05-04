@@ -1,0 +1,9 @@
+.mark, mark {
+    padding: 0;
+    background-color: gold;
+}
+.error{
+    color:red;
+    background-color: blue;
+    font-size: 30px;
+}

@@ -1,0 +1,12 @@
+1.	Hiển thị danh sách các users, thông tin gồm: id, fullname và email (fullname = firstname + “ “ + lastname) 
+2.	Hiển thị danh sách các users có email thuộc tài khoản của gmail ( giá trị email có dạng xxx@gmail.com), thông tin gồm: id, fullname, email 
+3.	Hiển thị danh sách các users chưa có avatar hoặc sign (chưa có hình ảnh hoặc chữ ký, nếu chưa có các giá trị này sẽ bằng rỗng), thông tin gồm: id, fullname, email 
+4.	Hiển thị danh sách các users chưa được kích hoạt tài khoản (active_time là giá trị rỗng), thông tin gồm: id, fullname, email 
+5.	Hiển thị danh sách các users được tạo ra từ ngày 01/06/2015 đến 30/06/2015), thông tin gồm: id, fullname, email 
+6.	Hiển thị danh sách các users vừa được cập nhật trong 2 ngày gần đây nhất 
+7.	Cho biết có bao nhiêu users chưa được active tài khoản 
+8.	Cho biết user nào vừa đăng ký vào website nhưng chưa active tài khoản 
+9.	Hiển thị danh sách các users, thông tin gồm: id, fullname, email và tên group 
+10.	Thống kê tổng số users ở mỗi group 
+11.	Thống kê tổng số có bao nhiêu user có quyền truy cập vào Admin control panel 
+12.	Cho biết các quyền của group có name là Admin
