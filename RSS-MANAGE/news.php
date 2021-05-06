@@ -1,7 +1,7 @@
 <?php
 require_once "admin/lib/Database.class.php";
 require_once "admin/lib/connect.php";
-$query = "SELECT * FROM `rss` WHERE `status` = '1'";
+$query = "SELECT * FROM `rss` WHERE `status` = '1' ORDER BY `ordering` ASC";
 $resultData = $database->listRecord($query);
 $data = [];
 foreach ($resultData as $value) {
@@ -9,37 +9,29 @@ foreach ($resultData as $value) {
     $xmlCdata = simplexml_load_file($url, "SimpleXMLElement", LIBXML_NOCDATA);
     $jsonData = json_encode($xmlCdata);
     $result = json_decode($jsonData, true)['channel']['item'];
-    $data = array_merge($result, $data);
+    $data = array_merge($data,$result);
 };
-
-// $url = 'https://vnexpress.net/rss/the-thao.rss';
-// $xmlCdata = simplexml_load_file($url, "SimpleXMLElement", LIBXML_NOCDATA);
-// $jsonData = json_encode($xmlCdata);
-// $data = json_decode($jsonData, true)['channel']['item'];
 $xhtml = '';
 foreach ($data as $key => $value) {
-
-    if (empty($value['link']) || empty($value['title']) || empty($value['pubDate'])) {
-        echo "asdfasdf";
-    };
     if (preg_match_all('#.*src="(.*)".*br>(.*)<end>#imsU', $value['description'] . '<end>', $matches)) {
-        $image = $matches[1][0] ?? 'https://www.dammio.com/wp-content/uploads/2018/09/php_code_demo.jpg';
+        $image = $matches[1][0] ;
         $description = $matches[2][0];
-    } else {
-        $image = 'https://taxfortress.com/wp-content/uploads/2019/11/default-installment-agreements.jpg';
+    } 
+    else {
+        $image = 'images/default.jpg';
         $description = $value['description'];
     };
     $xhtml .= '
     <div class="col-md-6 col-lg-4 p-3">
         <div class="entry mb-1 clearfix">
             <div class="entry-image mb-3">
-                <a href="' . $value['link'] . '" data-lightbox="image" style="background: url(\'' . $image . '\') no-repeat center center; background-size: cover; height: 278px;"></a>
+                <a href="' . $value['link'] . '" data-lightbox="image" style="background: url(\'' . $image . '\') no-repeat center center; background-size: cover; width:291.5px ;height: 278px;"></a>
             </div>
-            <div class="entry-title">
+            <div class="entry-title" style="height: 100px">
                 <h3><a href="' . $value['link'] . '" target="_blank">' . $value['title'] . '</a>
                 </h3>
             </div>
-            <div class="entry-content">
+            <div class="entry-content" style="height: 120px ">
             ' . $description . '
             </div>
             <div class="entry-meta no-separator nohover">

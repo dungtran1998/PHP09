@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE);
 require_once "lib/connect.php";
+require_once "lib/Helper.php";
 session_start();
 if ($_SESSION['flagPermission'] !== true) {
     session_unset();
@@ -26,16 +27,15 @@ foreach ($result as $key => $item) {
     $result  = preg_replace("/" . preg_quote($filter_search, "/") . "/i", "<mark>$0</mark>", $item['link']);
 
     $link = (!empty($filter_search)) ? $result : $item['link'];
-    $class = ($item['status'] == 1) ? "btn-success" : "btn-danger";
-    $icon = ($item['status'] == 1) ? "fa-check" : "fa-minus";
     $ordering = $item['ordering'];
+    $showStatus = Helper::showStatus($item['status'], $id);
     $xhtml .= '
     <tr>
         <td>' . $id . '</td>
         <td>' . $link . '</td>
         <td id = "status-' . $id . '">
-        <a  href="javascript:changeStatus(\'/PHP09/b11/admin/function-button/change-status.php?id=' . $id . '&status=' . $item['status'] . '\')" class="btn btn-sm ' . $class . '">
-        <i class="fas ' . $icon . '"></i></a></td>
+        ' . $showStatus . '
+        </td>
         <td>' . $ordering . '</td>
         <td>
             <a href="form.php?id=' . $id . '" class="btn btn-sm btn-warning">Edit</a>
@@ -104,12 +104,7 @@ foreach ($result as $key => $item) {
             </div>
         </div>
     </div>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/mdb.min.js"></script>
-    <script src="js/my-script.js"></script>
+    <?php require_once "html/script.php" ?>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE);
-require_once "lib/functions.php";
-require_once "lib/Database.class.php";
+require_once "admin/lib/Database.class.php";
+require_once "admin/lib/Helper.php";
 $formHTML = '
             <form id="login-form" name="login-form" class="mb-0" action="" method="post">
                 <h3 class="text-center">Đăng nhập trang quản trị</h3>
@@ -33,10 +33,8 @@ if ($_SESSION['flagPermission'] == true) {
         $formHTML .= ' 
         <div class="row">
             <div class="col-12 form-group">
-                <button type="submit" class="button button-3d button-black m-0">Đăng
-                    nhập</button>
                 <a href="index.php" class="button button-3d ">Trang chủ</a>
-                <a href="admin/list.php" class="button button-3d ">Admin</a>
+                <a href="admin/list.php" class="button button-3d button-black " style="width: 136.7px">Admin</a>
                 <a href="logout.php" class="button button-3d ">Đăng xuất</a>
             </div>
         </div>
@@ -46,10 +44,10 @@ if ($_SESSION['flagPermission'] == true) {
         header("Location:login.php");
     }
 } else {
-    if (!checkEmpty($_POST['username']) && !checkEmpty($_POST['password'])) {
+    if (!Helper::checkEmpty($_POST['username']) && !Helper::checkEmpty($_POST['password'])) {
         $username     = $_POST['username'];
         $password     = md5($_POST['password']);
-        require_once "lib/connect.php";
+        require_once "admin/lib/connect.php";
         $query[]     = "SELECT *";
         $query[]     = "FROM `user`";
         $query[]     = "WHERE `username` = '" . $username . "'";
@@ -58,9 +56,9 @@ if ($_SESSION['flagPermission'] == true) {
         $query        = implode(" ", $query);
         $userInfo = $database->singleRecord($query);
         if (!empty($userInfo)) {
-            $_SESSION['userInfo']         = $userInfo;
+            $_SESSION['userInfo']       = $userInfo;
             $_SESSION['flagPermission'] = true;
-            $_SESSION['timeout']         = time();
+            $_SESSION['timeout']        = time();
             header('location: login.php');
         } else {
             $error = '<h4 style="background-color:red; color:white">Wrong Input Password or Username</h4>';

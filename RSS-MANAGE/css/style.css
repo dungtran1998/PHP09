@@ -7364,9 +7364,9 @@ body:not(.device-touch) .portfolio {
 	margin-top: 20px;
 }
 
-.single-post .entry-content .entry-image { max-width: 350px; }
+.single-post .entry-content .entry-image { max-width: 350px;}
 
-.entry-content { position: relative; }
+.entry-content { position: relative}
 
 .entry-link {
 	display: block;
